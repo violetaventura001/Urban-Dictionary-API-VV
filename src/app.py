@@ -10,3 +10,18 @@ API_HOST = os.getenv("API_HOST")
 API_KEY = os.getenv("API_KEY")
 
 # continue with your application here
+input("What term do you want to look for?")
+
+import requests
+
+url = "https://mashape-community-urban-dictionary.p.rapidapi.com/define?term=computer"
+
+
+headers = {
+    'x-rapidapi-host': "mashape-community-urban-dictionary.p.rapidapi.com",
+    'x-rapidapi-key': API_KEY
+    }
+
+response = requests.request("GET", url, headers=headers)
+
+print(response.text)
