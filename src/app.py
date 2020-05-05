@@ -1,4 +1,4 @@
-import requests, os
+import requests, os, sys
 
 # Retrieve your API credentials from the .env file
 if os.getenv("API_KEY") is None or os.getenv("API_KEY") == "":
@@ -10,8 +10,26 @@ API_HOST = os.getenv("API_HOST")
 API_KEY = os.getenv("API_KEY")
 
 # continue with your application here
-word = input("What term do you want to look for?")
+def sync_word(_word,_permission):
+    text_file = open("./src/"+ _word + ".txt",_permission)
+    if _permission =="w+": 
+        text_file.write(body["list"][0]["definition"])
+    else:
+        return text_file.read()
+    text_file.close()
 
+word = ""
+
+if len(sys.argv) ==1:
+    word = input("What term do you want to look for?")
+else:
+    word = sys.argv[1]
+
+if os.path.isfile("./src/"+ word + ".txt"):
+    print("fetching")
+    print(sync_word(word,"r"))
+else:
+    
 querystring = {"term":"wat"}
 
 headers = {
